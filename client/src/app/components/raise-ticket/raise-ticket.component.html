@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="row w-100">
+        <div class="col-md-6 order-md-1 mb-4">
+            <img src="https://st3.depositphotos.com/7865540/13884/i/600/depositphotos_138842482-stock-photo-concept-on-tablet-pc-screen.jpg"
+                alt="" class="image img-fluid">
+        </div>
+        <div class="col-md-6 order-md-2 text-center">
+            <h2 class="heading">Write your complaint</h2>
+            <div class="">
+                <form [formGroup]="complaintForm" #r="ngForm" (ngSubmit)="onSubmit(r.value)" class="form">
+                    <div class="form-group">
+                        <label for="complaint">Write Complaint details</label>
+                        <textarea placeholder="Type something about complaint" type="text" rows="10"
+                            class="form-control" id="complaint" formControlName="complaint" required></textarea>
+                        <div
+                            *ngIf="complaintForm.controls['complaint'].touched && complaintForm.controls['complaint']?.['errors']">
+                            <div *ngIf="complaintForm.controls['complaint']?.['errors']?.['required']"
+                                class="error-message text-danger">
+                                Complaint is required
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-4 w-100 mb-4"
+                        [disabled]="complaintForm.invalid">Submit</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
