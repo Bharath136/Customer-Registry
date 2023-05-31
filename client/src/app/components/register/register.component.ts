@@ -18,6 +18,7 @@ export class RegisterComponent {
       username: new FormControl(null, Validators.required),
       phone: new FormControl(null, Validators.required),
       email: new FormControl(null, Validators.required),
+      type: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
     })
     const jwtToken = localStorage.getItem('adminJwtToken')

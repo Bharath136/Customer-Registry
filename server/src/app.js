@@ -19,7 +19,7 @@ app.use(cors());
 // user schema
 app.post('/register', async (req, res) => {
     try {
-        const { firstname, lastname, username, phone, email, password } = req.body;
+        const { firstname, lastname, username, phone,type, email, password } = req.body;
         const user = await models.Customer.findOne({ email });
 
         if (user) {
@@ -34,6 +34,7 @@ app.post('/register', async (req, res) => {
             lastname,
             username,
             phone,
+            type,
             email,
             password: hashedPassword
         });
@@ -50,7 +51,7 @@ app.post('/register', async (req, res) => {
 
 
 app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const {email, password } = req.body;
     const user = await models.Customer.findOne({ email });
     if (!user) {
         return res.status(401).json({ message: 'Invalid email or password' });
@@ -62,14 +63,29 @@ app.post('/login', async (req, res) => {
     }
 
     // Generate a JWT token
-    if (!isAdmin) {
+    if(!isAdmin && user.type === 'agent'){
+        const agentToken = jwt.sign( {userId: user._id}, 'agenttoken');
+        res.json({ user, agentToken });
+    }else if (!isAdmin && user.type === 'user') {
         const token = jwt.sign({ userId: user._id }, 'mysecretkey1');
         res.json({ user, token });
-    } else {
+    }else if (user.type === 'admin'){
         const jwtToken = jwt.sign({ userId: user._id }, 'mysecretkey2');
         res.json({ user, jwtToken });
     }
 });
+
+
+app.get('/users', async (req, res) => {
+    try {
+        const users = await models.Customer.find();
+        return res.status(200).json(users);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send('Server Error');
+    }
+});
+
 
 
 app.post('/complaints', async (req, res) => {
@@ -143,6 +159,39 @@ app.get('/complaints/:id', async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
+
+// Create a new agent
+app.post('/agents', async (req, res) => {
+    try {
+      const { name } = req.body;
+  
+      // Create a new agent object
+      const newAgent = new models.Agent({
+        name
+      });
+  
+      // Save the new agent to the database
+      const agentCreated = await newAgent.save();
+      console.log(agentCreated, 'agent created');
+      return res.status(201).json(agentCreated);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ error: 'Server Error' });
+    }
+  });
+
+
+app.get('/agents', async (req, res) => {
+    try {
+      const users = await models.Agent.find();
+      return res.status(200).json(users);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send('Server Error');
+    }
+  });
+  
 
 
 

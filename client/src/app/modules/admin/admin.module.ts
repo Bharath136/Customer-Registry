@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -9,6 +9,9 @@ import { ComplaintsComponent } from './components/complaints/complaints.componen
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AddAgentComponent } from './components/add-agent/add-agent.component';
 import { HomeComponent } from './components/home/home.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { CustomersComponent } from './components/customers/customers.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -18,12 +21,17 @@ import { HomeComponent } from './components/home/home.component';
     ComplaintsComponent,
     SidebarComponent,
     AddAgentComponent,
-    HomeComponent
+    HomeComponent,
+    ChatComponent,
+    CustomersComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
   ]
 })
 export class AdminModule { }

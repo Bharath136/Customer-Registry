@@ -9,11 +9,17 @@ import { FormsModule } from '@angular/forms';
 })
 export class ComplaintsComponent {
   complaints: any[] = []
+  agents: any[] = []
+  agent: string = ''
 
   constructor(private http: HttpClient) {
     this.http.get<any[]>(`http://localhost:5100/complaints`).subscribe((res) => {
       this.complaints = res
-      console.log(res)
+    })
+
+    this.http.get<any[]>(`http://localhost:5100/agents`).subscribe((res:any[]) => {
+      const response = res.filter((user) => user.type === 'agent')
+      this.agents = response
     })
   }
 
@@ -22,8 +28,12 @@ export class ComplaintsComponent {
     this.http.put(`http://localhost:5100/complaints/${id}/update-status`, {status:status}).subscribe((res) => {
       this.http.get<any[]>(`http://localhost:5100/complaints`).subscribe((res) => {
         this.complaints = res
-        console.log(res)
       })
     })
+  }
+
+  onAssign(userId:string,agent:string){
+    console.log(agent,userId)
+    this.agent = ""
   }
 }

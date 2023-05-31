@@ -11,6 +11,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RaiseTicketComponent } from './components/raise-ticket/raise-ticket.component';
 import { MyComplaintsComponent } from './components/my-complaints/my-complaints.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MyComplaintsComponent } from './components/my-complaints/my-complaints.
     HomeComponent,
     HeaderComponent,
     RaiseTicketComponent,
-    MyComplaintsComponent
+    MyComplaintsComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,11 @@
-<div class="container mt-4">
+<div class="container p-4">
     <div class="row">
         <div class="col-md-12">
             <h2 style="font-weight: bold;">All Complaints</h2>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4" *ngFor="let complaint of complaints">
+        <div class="col-12 col-md-6" *ngFor="let complaint of complaints">
             <div class="card mb-4" style="width: 100%;">
                 <div class="card-body">
                     <h5 class="card-title"><span style="font-weight: bold; font-size: 20px;">Id:</span> {{ complaint._id
@@ -23,7 +23,7 @@
                             <button class="btn btn-success" *ngIf="complaint.status === 'solved'"
                                 disabled="true">Completed</button>
                         </ng-container>
-                        <ng-container *ngIf="complaint.showDropdown">
+                        <ng-container *ngIf="complaint.shobwDropdown">
                             <select class="form-select" [(ngModel)]="complaint.status">
                                 <option value="pending">Pending</option>
                                 <option value="solved">Solved</option>
@@ -31,6 +31,16 @@
                             <button class="btn btn-primary"
                                 (click)="onSubmitStatus(complaint._id, complaint.status)">Submit</button>
                         </ng-container>
+                    </div>
+                    <label for="">Select Agent</label>
+                    <div class="row">
+                        <div class="d-flex">
+                            <select class="form-select" [(ngModel)]="agent">
+                                <option *ngFor="let agentItem of agents" [value]="agentItem._id">{{ agentItem.name }}
+                                </option>
+                            </select>
+                            <button class="btn btn-primary" (click)="onAssign(complaint.customer,agent)">Assign</button>
+                        </div>
                     </div>
                 </div>
             </div>

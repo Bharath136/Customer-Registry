@@ -4,6 +4,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AgentsComponent } from './components/agents/agents.component';
 import { ComplaintsComponent } from './components/complaints/complaints.component';
 import { HomeComponent } from './components/home/home.component';
+import { AddAgentComponent } from './components/add-agent/add-agent.component';
+import { CustomersComponent } from './components/customers/customers.component';
 
 const routes: Routes = [
   {
@@ -11,7 +13,9 @@ const routes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'agents', component: AgentsComponent },
-      { path: 'complaints', component: ComplaintsComponent }
+      { path: 'complaints', component: ComplaintsComponent },
+      { path: 'add-agent', component: AddAgentComponent },
+      { path: 'customers', component: CustomersComponent }
     ]
   }
 ];

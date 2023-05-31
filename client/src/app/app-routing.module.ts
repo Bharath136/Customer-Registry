@@ -16,6 +16,9 @@ const routes: Routes = [
   {
     path:'admin',loadChildren: () => import('./modules/admin/admin.module').then((m) => m.AdminModule)
   },
+  {
+    path:'agent',loadChildren: () => import('./agent-module/admin/admin.module').then((m) => m.AdminModule)
+  },
 ];
 
 @NgModule({
