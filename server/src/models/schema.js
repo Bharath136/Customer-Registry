@@ -1,32 +1,45 @@
 // Import required modules
 const mongoose = require('mongoose');
 
-const customerSchema = new mongoose.Schema({ 
-    firstname: { type: String, required: true }, 
-    lastname: { type: String, required: true }, 
-    username: { type: String, required: true }, 
-    phone: { type: String, required: true }, 
-    type: {type:String, required:true},
-    email: { type: String, required: true, unique: true }, 
-    password: { type: String, required: true }, 
+const customerSchema = new mongoose.Schema({
+    firstname: { type: String, required: true },
+    lastname: { type: String, required: true },
+    username: { type: String, required: true },
+    type: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
 });
 
-const complaintSchema = new mongoose.Schema({ 
-    customer: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer', required: true }, 
-    complaintDetails: { type: String, required: true }, 
-    status: { type: String, default: 'pending' }, 
-    createdAt: { type: Date, default: new Date() } 
+const complaintSchema = new mongoose.Schema({
+    customer: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer', required: true },
+    complaintDetails: { type: String, required: true },
+    status: { type: String, default: 'pending' },
+    agent: { type: String,required:true},
+    createdAt: { type: Date, default: new Date() }
 });
 
-const agentSchema = new mongoose.Schema({ 
-    name: { type: String, required: true }, 
+const agentSchema = new mongoose.Schema({
+    complaintId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    customerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer', required: true },
+    agentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Agent', required: true },
+    createdAt: { type: Date, default: new Date() }
 });
 
-const communicationSchema = new mongoose.Schema({ 
-    sender: { type: mongoose.Schema.Types.ObjectId, required: true }, 
-    receiver: { type: mongoose.Schema.Types.ObjectId, required: true }, 
-    message: { type: String, required: true }, 
-    createdAt: { type: Date, default: new Date() } 
+
+const notificationSchema = new mongoose.Schema({
+    userId: { type: String, ref: 'User', required: true },
+    senderId: { type: String, ref: 'User', required: true },
+    content: { type: String, required: true },
+    isRead: { type: Boolean, default: false },
+    createdAt: { type: Date, default: Date.now },
+  });
+  
+
+const communicationSchema = new mongoose.Schema({
+    senderId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    receiverId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    content: { type: String, required: true },
+    createdAt: { type: Date, default: new Date() }
 });
 
 const analyticsSchema = new mongoose.Schema({ /* Fields for generating reports and analytics */ });
@@ -38,6 +51,7 @@ const Complaint = mongoose.model('Complaint', complaintSchema);
 const Agent = mongoose.model('Agent', agentSchema);
 const Communication = mongoose.model('Communication', communicationSchema);
 const Analytics = mongoose.model('Analytics', analyticsSchema);
+const Notification = mongoose.model('Notification',notificationSchema)
 
 // Export the models
 module.exports = {
@@ -45,5 +59,6 @@ module.exports = {
     Complaint,
     Agent,
     Communication,
-    Analytics
+    Analytics,
+    Notification
 };

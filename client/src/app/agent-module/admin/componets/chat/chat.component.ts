@@ -8,7 +8,6 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
-
   user: any = '';
   senderId: any = ''
   messages: any[] = [];

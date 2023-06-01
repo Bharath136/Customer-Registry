@@ -32,16 +32,18 @@
                                 (click)="onSubmitStatus(complaint._id, complaint.status)">Submit</button>
                         </ng-container>
                     </div>
-                    <label for="">Select Agent</label>
-                    <div class="row">
+                    <p> <span style="font-weight: bold; font-size: 20px;">Agent Id:</span> {{complaint.agent}}</p>
+                    <label for="" *ngIf="complaint.agent === ' '">Select Agent</label>
+                    <div class="row" *ngIf="complaint.agent === ' '">
                         <div class="d-flex">
-                            <select class="form-select" [(ngModel)]="agent">
-                                <option *ngFor="let agentItem of agents" [value]="agentItem._id">{{ agentItem.name }}
-                                </option>
-                            </select>
-                            <button class="btn btn-primary" (click)="onAssign(complaint.customer,agent)">Assign</button>
+                          <select class="form-select" [(ngModel)]="complaint.selectedAgent">
+                            <option *ngFor="let agent of agents" [value]="agent._id">{{ agent.firstname }}</option>
+                          </select>
+                          <button class="btn btn-primary" *ngIf="complaint.agent === ' '" (click)="onAssign(complaint.customer, complaint._id, complaint.selectedAgent)">Assign</button>
+                          
                         </div>
-                    </div>
+                      </div>
+                      <button class="btn btn-primary" *ngIf="complaint.agent !== ' '" [disabled]="complaint.agent !== ' '" (click)="onAssign(complaint.customer, complaint._id, complaint.selectedAgent)">Assigned to Agent</button>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+// import { ObjectId } from 'bson';
 
 @Component({
   selector: 'app-complaints',
@@ -10,16 +11,17 @@ import { FormsModule } from '@angular/forms';
 export class ComplaintsComponent {
   complaints: any[] = []
   agents: any[] = []
-  agent: string = ''
+  selectedAgent: string = ''
 
   constructor(private http: HttpClient) {
     this.http.get<any[]>(`http://localhost:5100/complaints`).subscribe((res) => {
       this.complaints = res
     })
 
-    this.http.get<any[]>(`http://localhost:5100/agents`).subscribe((res:any[]) => {
+    this.http.get<any[]>(`http://localhost:5100/users`).subscribe((res:any[]) => {
       const response = res.filter((user) => user.type === 'agent')
       this.agents = response
+      console.log(this.agents)
     })
   }
 
@@ -32,8 +34,20 @@ export class ComplaintsComponent {
     })
   }
 
-  onAssign(userId:string,agent:string){
-    console.log(agent,userId)
-    this.agent = ""
+  onAssign(userId: String,complaint: String, agent: String, ) {
+    const details = {
+      customerId: userId,
+      complaintId: complaint,
+      agentId: agent
+    };
+  
+    // console.log(details);
+  
+    this.http.post(`http://localhost:5100/agents-complaints/${complaint}`, details)
+      .subscribe(response => {
+        alert('Complaint Assigned Successful!')
+      });
+  
+    this.selectedAgent = "";
   }
 }

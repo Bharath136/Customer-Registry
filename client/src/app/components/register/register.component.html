@@ -54,15 +54,6 @@
                     </div>
                 </div>
                 <div class="form-group mb-2">
-                    <label for="phone">Phone</label>
-                    <input placeholder="Enter phone" type="text" class="form-control" id="phone" formControlName="phone" required>
-                    <div *ngIf="regForm.controls['phone'].touched && regForm.controls['phone']?.['errors']">
-                        <div *ngIf="regForm.controls['phone']?.['errors']?.['required']" class="error-message text-danger">
-                            Phone no is required
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group mb-2">
                     <label for="password">Password</label>
                     <input placeholder="Enter password" type="text" class="form-control" id="password" formControlName="password" required>
                     <div *ngIf="regForm.controls['password'].touched && regForm.controls['password']?.['errors']">

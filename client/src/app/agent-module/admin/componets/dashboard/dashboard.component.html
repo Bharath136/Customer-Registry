@@ -1,1 +1,12 @@
-<p>dashboard works!</p>
+<div class="container p-4">
+    <h2>Complaints</h2>
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let complaint of complaints">
+            <strong>Complaint ID:</strong> {{ complaint.complaintId }}<br>
+            <strong>Customer Name:</strong> {{ complaint.customerId.username }}<br>
+            <strong>Customer Phone:</strong> {{ complaint.customerId.phone }}<br>
+            <strong>Agent ID:</strong> {{ complaint.agentId }}<br>
+            <button class="btn btn-primary" [routerLink]="['/agent/chat', complaint.customerId._id]">Message</button>
+        </li>
+    </ul>
+</div>

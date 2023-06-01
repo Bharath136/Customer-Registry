@@ -16,7 +16,6 @@ export class RegisterComponent {
       firstname: new FormControl(null, Validators.required),
       lastname: new FormControl(null, Validators.required),
       username: new FormControl(null, Validators.required),
-      phone: new FormControl(null, Validators.required),
       email: new FormControl(null, Validators.required),
       type: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),
@@ -31,7 +30,7 @@ export class RegisterComponent {
     }
   }
 
-  onSubmit(details: { firstname: string, lastname: string, username: string, phone: string, email: string, password: string }): void {
+  onSubmit(details: { firstname: string, lastname: string, username: string, email: string, password: string }): void {
     this.http.post('http://localhost:5100/register', details).subscribe(
       (response) => {
         window.alert('Registered Successfully!');
