@@ -1,7 +1,7 @@
 .sidebar-container{
     width: 20%;
     height: 90vh;
-    background-image: linear-gradient(to bottom right,#fff, #00487e);
+    background-color: #011932;
 }
 @media screen and (max-width:768px) {
     .sidebar-container{

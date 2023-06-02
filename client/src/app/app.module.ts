@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RaiseTicketComponent } from './components/raise-ticket/raise-ticket.component';
 import { MyComplaintsComponent } from './components/my-complaints/my-complaints.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { AgentComponent } from './components/agent/agent.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ChatComponent } from './components/chat/chat.component';
     HeaderComponent,
     RaiseTicketComponent,
     MyComplaintsComponent,
-    ChatComponent
+    ChatComponent,
+    AgentComponent
   ],
   imports: [
     BrowserModule,

@@ -21,7 +21,6 @@ export class ComplaintsComponent {
     this.http.get<any[]>(`http://localhost:5100/users`).subscribe((res:any[]) => {
       const response = res.filter((user) => user.type === 'agent')
       this.agents = response
-      console.log(this.agents)
     })
   }
 

@@ -162,7 +162,7 @@ app.get('/complaints', async (req, res) => {
 });
 
 
-app.get('/complaints/:id', async (req, res) => {
+app.get('/agents-complaints/:id', async (req, res) => {
     try {
         const userId = req.params.id;
 
@@ -183,10 +183,7 @@ app.get('/complaints/:id', async (req, res) => {
 // Create a new agent
 app.post('/agents-complaints/:id', async (req, res) => {
     try {
-        const id = req.params.id
         const { customerId, agentId, complaintId } = req.body;
-
-        // Create a new agent object
         const newAgent = new models.Agent({
             customerId,
             agentId,
@@ -196,7 +193,7 @@ app.post('/agents-complaints/:id', async (req, res) => {
         const agentComplaintCreated = await newAgent.save();
         const complaintDetails = await models.Complaint.findById(complaintId);
 
-        complaintDetails.agent = agentId
+        complaintDetails.agent = agentId;
         const updatedComplaint = await complaintDetails.save();
         agentComplaintCreated.complaintDetails = complaintDetails;
 
@@ -207,11 +204,23 @@ app.post('/agents-complaints/:id', async (req, res) => {
     }
 });
 
+
 app.get('/complaints/:id', async (request, response) => {
     try {
-        const id = request.params.id;
-        console.log(id);
-        const complaints = await models.Complaint.find({ agentId: id });
+        const agentId = request.params.id;
+        const complaints = await models.Complaint.find({ agent: agentId }).populate('customer');
+        response.send(complaints);
+    } catch (error) {
+        console.log(error);
+        return response.status(500).json({ error: 'Server Error' });
+    }
+});
+
+
+app.get('/customer-complaints/:id', async (request, response) => {
+    try {
+        const agentId = request.params.id;
+        const complaints = await models.Complaint.find({ customer: agentId }).populate('customer');
         response.send(complaints);
     } catch (error) {
         console.log(error);
@@ -221,15 +230,14 @@ app.get('/complaints/:id', async (request, response) => {
 
 
 
-
-app.get('/agent/:id', async (req, res) => {
+app.get('/user-complaints/:id', async (req, res) => {
     try {
         const id = req.params.id
-        const complaints = await models.Agent.findById({ agentId: id });
-        return res.status(200).json(complaints);
+        const complaints = await models.Complaint.find({customer:id});
+
+        res.status(200).json(complaints);
     } catch (error) {
-        console.log(error);
-        return res.status(500).send('Server Error');
+        res.status(500).json({ error: error.message });
     }
 });
 
@@ -288,6 +296,22 @@ app.get('/notifications/:userId', async (req, res) => {
     }
 });
 
+
+app.get('/agent-notifications/:userId', async (req, res) => {
+    try {
+      const userId = req.params.userId;
+      const notifications = await models.AgentNotification.find({ userId }).populate({
+        path: 'senderId',
+        model: 'Customer',
+      });
+      res.json(notifications);
+    } catch (error) {
+      res.status(500).json({ message: 'Failed to retrieve notifications.' });
+    }
+  });
+  
+  
+
 // Create a new notification
 app.post('/notifications', async (req, res) => {
     try {
@@ -299,6 +323,20 @@ app.post('/notifications', async (req, res) => {
         res.status(500).json({ message: 'Failed to create notification.' });
     }
 });
+
+
+// Create a new notification
+app.post('/agent-notifications', async (req, res) => {
+    try {
+        console.log(req.body);
+        const { userId, senderId, content } = req.body;
+        const notification = await models.AgentNotification.create({ userId, senderId, content });
+        res.status(201).json(notification);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to create notification.' });
+    }
+});
+
 
 app.delete('/notifications/:userId', async (req, res) => {
     try {

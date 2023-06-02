@@ -33,6 +33,14 @@ const notificationSchema = new mongoose.Schema({
     isRead: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now },
   });
+
+  const agentNotificationSchema = new mongoose.Schema({
+    userId: { type: String, ref: 'User', required: true },
+    senderId: { type: String, ref: 'User', required: true },
+    content: { type: String, required: true },
+    isRead: { type: Boolean, default: false },
+    createdAt: { type: Date, default: Date.now },
+  });
   
 
 const communicationSchema = new mongoose.Schema({
@@ -51,7 +59,8 @@ const Complaint = mongoose.model('Complaint', complaintSchema);
 const Agent = mongoose.model('Agent', agentSchema);
 const Communication = mongoose.model('Communication', communicationSchema);
 const Analytics = mongoose.model('Analytics', analyticsSchema);
-const Notification = mongoose.model('Notification',notificationSchema)
+const Notification = mongoose.model('Notification',notificationSchema);
+const AgentNotification = mongoose.model('AgentNotification', agentNotificationSchema);
 
 // Export the models
 module.exports = {
@@ -60,5 +69,6 @@ module.exports = {
     Agent,
     Communication,
     Analytics,
-    Notification
+    Notification,
+    AgentNotification
 };

@@ -1,24 +1,32 @@
-<!-- <div class="d-flex align-items-center w-100">
-    <div class="sidebar-container">hjdf</div>
-    <div class="message-container ">
-        <nav class="navbar" style="background-color: rgb(75, 75, 75); height: 10vh;">
-            <i class="fa fa-man"></i>
-        </nav>
-        <div class="body-container" style="height: 72vh; background-color: rgb(202, 213, 223);"></div>
-        <div class="sender-input-container d-flex align-items-center" style="height: 8vh; padding: 20px; border: 1px solid grey;  border-radius: 4px;">
-            <input type="text" placeholder="Type a message..." name="" style="height: 7vh; width: 100%; border: none; outline: none; font-size: 18px;" id="">
-            <i class="fas fa-paper-plane" style="font-size: 28px;cursor: pointer;"></i>
+<div class="d-flex">
+    <div class="sidebar-container p-2 text-center">
+        <div class="card p-2 text-center">
+            <i class="fas fa-user mb-2" style="font-size: 100px;"></i>
+            <h1 class="fs-5">{{ currectUser.username }}</h1>
+            <h1 style="font-size: 24px;">Complaints Details</h1>
+            <div class="d-flex flex-wrap justify-content-center">
+                <div class="p-2">
+                    <p style="margin-bottom: 0;">Total</p>
+                    <h1 style="margin-top: 0;font-size: 28px; color: #636566;">{{ totalComplaints.length }}</h1>
+                </div>
+                <div class="p-2">
+                    <p style="margin-bottom: 0;">Solved</p>
+                    <h1 style="margin-top: 0;font-size: 28px; color: #636566;">{{ resolvedComplaints.length }}</h1>
+                </div>
+                <div class="p-2">
+                    <p style="margin-bottom: 0;">Pending</p>
+                    <h1 style="margin-top: 0;font-size: 28px; color: #636566;">{{ pendingComplaints.length }}</h1>
+                </div>
+            </div>
         </div>
     </div>
-</div> -->
-
-
-<div class="d-flex">
-    <div class="sidebar-container">hjdf</div>
+    
+    
     <div class="message-container">
         <nav class="d-flex p-4 align-items-center"
             style="gap: 10px; background-color: #011932;color: #ffffff; height: 10vh;">
-            <img src="{{user.avatar}}" alt="" class="profile-image">
+            <!-- <img src="{{user.avatar}}" alt="" class="profile-image"> -->
+            <i class="fas fa-user mb-2" style="font-size: 24px;"></i>
             <div>
                 <h5 style="font-size: 14px;">{{user.username}}</h5>
             </div>

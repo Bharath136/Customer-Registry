@@ -6,6 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RaiseTicketComponent } from './components/raise-ticket/raise-ticket.component';
 import { MyComplaintsComponent } from './components/my-complaints/my-complaints.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { AgentComponent } from './components/agent/agent.component';
 
 const routes: Routes = [
   {path:'login',component:LoginComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'my-complaints',component:MyComplaintsComponent},
   {path:'chat/:id',component:ChatComponent},
+  {path:'agents',component:AgentComponent},
   {
     path:'admin',loadChildren: () => import('./modules/admin/admin.module').then((m) => m.AdminModule)
   },

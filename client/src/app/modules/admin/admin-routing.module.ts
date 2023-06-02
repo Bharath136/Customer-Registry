@@ -6,6 +6,7 @@ import { ComplaintsComponent } from './components/complaints/complaints.componen
 import { HomeComponent } from './components/home/home.component';
 import { AddAgentComponent } from './components/add-agent/add-agent.component';
 import { CustomersComponent } from './components/customers/customers.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
       { path: 'agents', component: AgentsComponent },
       { path: 'complaints', component: ComplaintsComponent },
       { path: 'add-agent', component: AddAgentComponent },
-      { path: 'customers', component: CustomersComponent }
+      { path: 'customers', component: CustomersComponent },
+      {path:'chat/:id',component:ChatComponent}
     ]
   }
 ];

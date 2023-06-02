@@ -12,7 +12,7 @@ export class MyComplaintsComponent {
 
   constructor(private http:HttpClient, private route:Router){
     const userId = localStorage.getItem('userId')
-    this.http.get<any[]>(`http://localhost:5100/complaints/${userId}`).subscribe((res) => {
+    this.http.get<any[]>(`http://localhost:5100/user-complaints/${userId}`).subscribe((res) => {
       this.complaints = res
       console.log(res)
     })
