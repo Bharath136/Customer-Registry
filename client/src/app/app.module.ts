@@ -13,6 +13,7 @@ import { RaiseTicketComponent } from './components/raise-ticket/raise-ticket.com
 import { MyComplaintsComponent } from './components/my-complaints/my-complaints.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { AgentComponent } from './components/agent/agent.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AgentComponent } from './components/agent/agent.component';
     RaiseTicketComponent,
     MyComplaintsComponent,
     ChatComponent,
-    AgentComponent
+    AgentComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
